@@ -30,8 +30,12 @@ const Chatbot = () => {
     setInput('')
     setIsTyping(true)
 
+    const botMsgId = Date.now() + 1
+    const botMsg = { id: botMsgId, text: '', sender: 'bot' }
+    setMessages(prev => [...prev, botMsg])
+
     try {
-      const response = await fetch(`${config.chatbot.baseUrl}/chat`, {
+      const response = await fetch(`${config.chatbot.baseUrl}/chat/stream`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -40,23 +44,31 @@ const Chatbot = () => {
         })
       })
 
-      const data = await response.json()
-      
-      // Assuming response structure contains a message field
-      const botMsg = { 
-        id: Date.now() + 1, 
-        text: data.response || data.message || "I'm sorry, I'm having trouble connecting to my brain right now.", 
-        sender: 'bot' 
+      if (!response.ok) throw new Error('Network response was not ok')
+
+      const reader = response.body.getReader()
+      const decoder = new TextDecoder()
+      let accumulatedText = ''
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        const chunk = decoder.decode(value, { stream: true })
+        accumulatedText += chunk
+
+        // Update the specific bot message with accumulated text
+        setMessages(prev => prev.map(msg =>
+          msg.id === botMsgId ? { ...msg, text: accumulatedText } : msg
+        ))
       }
-      setMessages(prev => [...prev, botMsg])
     } catch (error) {
       console.error('Chat error:', error)
-      const errorMsg = { 
-        id: Date.now() + 1, 
-        text: "Oops! I couldn't reach the server. Please make sure the chatbot backend is running.", 
-        sender: 'bot' 
-      }
-      setMessages(prev => [...prev, errorMsg])
+      setMessages(prev => prev.map(msg =>
+        msg.id === botMsgId
+          ? { ...msg, text: "Oops! I couldn't reach the server. Please make sure the chatbot backend is running." }
+          : msg
+      ))
     } finally {
       setIsTyping(false)
     }
@@ -66,7 +78,7 @@ const Chatbot = () => {
     <div className="chatbot">
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <motion.div
             className="chatbot__window glass-card"
             initial={{ opacity: 0, y: 20, scale: 0.95, transformOrigin: 'bottom right' }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -88,16 +100,18 @@ const Chatbot = () => {
 
             <div className="chatbot__messages" ref={scrollRef}>
               {messages.map((msg) => (
-                <motion.div 
-                  key={msg.id} 
-                  className={`chatbot__message chatbot__message--${msg.sender}`}
-                  initial={{ opacity: 0, x: msg.sender === 'user' ? 10 : -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                >
-                  <div className="chatbot__message-bubble">
-                    {msg.text}
-                  </div>
-                </motion.div>
+                (msg.text || msg.sender === 'user') && (
+                  <motion.div
+                    key={msg.id}
+                    className={`chatbot__message chatbot__message--${msg.sender}`}
+                    initial={{ opacity: 0, x: msg.sender === 'user' ? 10 : -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                  >
+                    <div className="chatbot__message-bubble">
+                      {msg.text}
+                    </div>
+                  </motion.div>
+                )
               ))}
               {isTyping && (
                 <div className="chatbot__message chatbot__message--bot">
@@ -109,9 +123,9 @@ const Chatbot = () => {
             </div>
 
             <form className="chatbot__input-area" onSubmit={handleSend}>
-              <input 
-                type="text" 
-                placeholder="Ask something..." 
+              <input
+                type="text"
+                placeholder="Ask something..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 className="chatbot__input"
@@ -124,7 +138,7 @@ const Chatbot = () => {
         )}
       </AnimatePresence>
 
-      <motion.button 
+      <motion.button
         className={`chatbot__toggle ${isOpen ? 'chatbot__toggle--active' : ''}`}
         onClick={toggleChat}
         whileHover={{ scale: 1.1 }}

@@ -92,7 +92,7 @@ const About = () => {
                   <span className="about__code-filename">about.js</span>
                 </div>
                 <pre className="about__code-content">
-{`const developer = {
+                  {`const developer = {
   name: "Satyam Gupta",
   role: "Associate SDE",
   company: "Blue Yonder",
