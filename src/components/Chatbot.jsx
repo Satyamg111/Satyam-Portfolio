@@ -55,12 +55,23 @@ const Chatbot = () => {
         if (done) break
 
         const chunk = decoder.decode(value, { stream: true })
-        accumulatedText += chunk
+        const lines = chunk.split("\n");
 
-        // Update the specific bot message with accumulated text
-        setMessages(prev => prev.map(msg =>
-          msg.id === botMsgId ? { ...msg, text: accumulatedText } : msg
-        ))
+        for (const line of lines) {
+          if (line.startsWith("data: ")) {
+            const text = line.replace(
+              "data: ",
+              ""
+            );
+
+            accumulatedText += text;
+            // Update the specific bot message with accumulated text
+            setMessages(prev => prev.map(msg =>
+              msg.id === botMsgId ? { ...msg, text: accumulatedText } : msg
+            ))
+          }
+        }
+
       }
     } catch (error) {
       console.error('Chat error:', error)
