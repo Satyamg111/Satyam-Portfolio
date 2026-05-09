@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HiChatAlt2, HiX, HiPaperAirplane, HiDotsHorizontal } from 'react-icons/hi'
+import config from '../config'
 import './Chatbot.css'
 
 const Chatbot = () => {
@@ -30,11 +31,11 @@ const Chatbot = () => {
     setIsTyping(true)
 
     try {
-      const response = await fetch('http://localhost:8000/chat', {
+      const response = await fetch(`${config.chatbot.baseUrl}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          agent: 'resume',
+          agent: config.chatbot.agent,
           message: input
         })
       })
