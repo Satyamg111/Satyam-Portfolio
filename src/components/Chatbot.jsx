@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HiChatAlt2, HiX, HiPaperAirplane, HiDotsHorizontal } from 'react-icons/hi'
+import ReactMarkdown from 'react-markdown'
 import config from '../config'
 import './Chatbot.css'
 
@@ -119,7 +120,7 @@ const Chatbot = () => {
                     animate={{ opacity: 1, x: 0 }}
                   >
                     <div className="chatbot__message-bubble">
-                      {msg.text}
+                      <ReactMarkdown>{msg.text}</ReactMarkdown>
                     </div>
                   </motion.div>
                 )
