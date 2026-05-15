@@ -21,6 +21,28 @@ const education = [
     grade: 'CGPA: 7.73/10.0',
     icon: '🎓',
   },
+  {
+    degree: 'Bachelor of Computer Application (BCA)',
+    field: 'Computer Science',
+    school: 'Devi Ahilya Vishwavidyalaya, Indore',
+    year: '2018 – 2021',
+    grade: '72.9%',
+    icon: '🎓',
+  },
+  {
+    degree: 'Higher Secondary School (XII)',
+    school: 'Board of Secondary Education, Madhya Pradesh',
+    year: '2017 – 2018',
+    grade: '80.2%',
+    icon: '🎓',
+  },
+  {
+    degree: 'High School (X)',
+    school: 'Board of Secondary Education, Madhya Pradesh',
+    year: '2015 – 2016',
+    grade: '83.3%',
+    icon: '🎓',
+  },
 ]
 
 const experience = [
