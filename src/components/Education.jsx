@@ -6,7 +6,7 @@ import {
 } from 'react-icons/fa'
 import {
   SiJavascript, SiTypescript, SiMongodb, SiExpress,
-  SiMysql, SiSocketdotio, SiCplusplus
+  SiMysql, SiSocketdotio, SiCplusplus, SiFastapi
 } from 'react-icons/si'
 import { GrOracle } from 'react-icons/gr'
 import { HiAcademicCap, HiBriefcase } from 'react-icons/hi'
@@ -92,6 +92,7 @@ const skillCategories = [
       { name: 'React.js', icon: <FaReact />, level: 92, color: '#61DAFB' },
       { name: 'Node.js', icon: <FaNodeJs />, level: 85, color: '#339933' },
       { name: 'Express.js', icon: <SiExpress />, level: 85, color: '#ffffff' },
+      { name: 'FastAPI', icon: <SiFastapi />, level: 80, color: '#009688' },
       { name: 'Socket.IO', icon: <SiSocketdotio />, level: 78, color: '#010101' },
     ],
   },

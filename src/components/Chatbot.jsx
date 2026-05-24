@@ -14,6 +14,7 @@ const Chatbot = () => {
   const [isTyping, setIsTyping] = useState(false)
   const [showGreeting, setShowGreeting] = useState(false)
   const scrollRef = useRef(null)
+  const sessionId = useRef(crypto.randomUUID())
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -60,7 +61,8 @@ const Chatbot = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           agent: config.chatbot.agent,
-          message: input
+          message: input,
+          session_id: sessionId.current
         })
       })
 

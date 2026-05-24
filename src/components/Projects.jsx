@@ -3,7 +3,7 @@ import { motion, useInView } from 'framer-motion'
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
 import {
   SiReact, SiNodedotjs, SiMongodb, SiExpress,
-  SiSocketdotio, SiMysql, SiJsonwebtokens
+  SiSocketdotio, SiMysql, SiJsonwebtokens, SiFastapi
 } from 'react-icons/si'
 import { FaLock } from 'react-icons/fa'
 import './Projects.css'
@@ -17,6 +17,7 @@ const techIcons = {
   MySQL: <SiMysql />,
   JWT: <SiJsonwebtokens />,
   bcrypt: <FaLock />,
+  FastAPI: <SiFastapi />,
 }
 
 const projects = [
@@ -53,16 +54,16 @@ const projects = [
   {
     title: 'Portfolio Website',
     description:
-      'This very portfolio! A modern, animated single-page application built with React and Framer Motion, featuring particle backgrounds, glassmorphism design, and smooth scroll animations.',
-    tech: ['React.js', 'Node.js'],
+      'Built a personal portfolio site with an AI-powered chatbot that answers visitor queries based on resume context, using LangGraph for agent workflow orchestration.',
+    tech: ['React.js', 'FastAPI'],
     github: 'https://github.com/Satyamg111/Satyam-Portfolio',
     live: 'https://satyam-portfolio-mu-kohl.vercel.app/',
     gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
-    emoji: '🌟',
+    emoji: '🤖',
     highlights: [
-      'Canvas particle system with mouse interaction',
-      'Framer Motion scroll-triggered animations',
-      'Glassmorphism design system',
+      'Designed a FastAPI backend with OpenRouter for flexible LLM routing',
+      'Implemented RAG-style context injection for grounded responses',
+      'Deployed frontend on Vercel and backend on Render',
     ],
   },
 ]
