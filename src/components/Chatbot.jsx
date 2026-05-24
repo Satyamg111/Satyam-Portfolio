@@ -12,6 +12,7 @@ const Chatbot = () => {
   ])
   const [input, setInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
+  const [showGreeting, setShowGreeting] = useState(false)
   const scrollRef = useRef(null)
 
   useEffect(() => {
@@ -20,7 +21,25 @@ const Chatbot = () => {
     }
   }, [messages, isTyping])
 
-  const toggleChat = () => setIsOpen(!isOpen)
+  useEffect(() => {
+    const showTimer = setTimeout(() => {
+      setShowGreeting(true)
+    }, 1000)
+    
+    const hideTimer = setTimeout(() => {
+      setShowGreeting(false)
+    }, 10000)
+
+    return () => {
+      clearTimeout(showTimer)
+      clearTimeout(hideTimer)
+    }
+  }, [])
+
+  const toggleChat = () => {
+    setIsOpen(!isOpen)
+    if (!isOpen) setShowGreeting(false)
+  }
 
   const handleSend = async (e) => {
     e.preventDefault()
@@ -146,6 +165,31 @@ const Chatbot = () => {
                 <HiPaperAirplane />
               </button>
             </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showGreeting && !isOpen && (
+          <motion.div 
+            className="chatbot__greeting"
+            initial={{ opacity: 0, y: 10, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.9 }}
+            transition={{ duration: 0.3 }}
+            onClick={toggleChat}
+          >
+            <div className="chatbot__greeting-avatar">🤖</div>
+            <div className="chatbot__greeting-text">Hi! 👋<br/>How can I help you?</div>
+            <button 
+              className="chatbot__greeting-close" 
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowGreeting(false);
+              }}
+            >
+              <HiX size={14} />
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

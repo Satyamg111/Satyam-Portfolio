@@ -25,8 +25,8 @@ const projects = [
     description:
       'A full-stack real-time chat application built with the MERN stack and Chakra UI. Features include real-time messaging via Socket.IO, JWT-based authentication, group chats, and password encryption with bcrypt.',
     tech: ['React.js', 'Node.js', 'MongoDB', 'Express.js', 'Socket.IO', 'JWT'],
-    github: 'https://github.com/Satyamg111',
-    live: '#',
+    github: 'https://github.com/Satyamg111/Chat-app-MERN',
+    live: 'https://chat-app-mern-chi.vercel.app/',
     gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
     emoji: '💬',
     highlights: [
@@ -55,8 +55,8 @@ const projects = [
     description:
       'This very portfolio! A modern, animated single-page application built with React and Framer Motion, featuring particle backgrounds, glassmorphism design, and smooth scroll animations.',
     tech: ['React.js', 'Node.js'],
-    github: 'https://github.com/Satyamg111',
-    live: '#',
+    github: 'https://github.com/Satyamg111/Satyam-Portfolio',
+    live: 'https://satyam-portfolio-mu-kohl.vercel.app/',
     gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
     emoji: '🌟',
     highlights: [
@@ -126,9 +126,8 @@ const Projects = () => {
           {filters.map((filter) => (
             <button
               key={filter}
-              className={`projects__filter-btn ${
-                activeFilter === filter ? 'projects__filter-btn--active' : ''
-              }`}
+              className={`projects__filter-btn ${activeFilter === filter ? 'projects__filter-btn--active' : ''
+                }`}
               onClick={() => setActiveFilter(filter)}
               id={`filter-${filter.toLowerCase().replace('.', '')}`}
             >
@@ -152,6 +151,13 @@ const Projects = () => {
               variants={cardVariants}
               layout
               whileHover={{ y: -10 }}
+              onClick={() => {
+                const url = project.live !== '#' ? project.live : project.github;
+                if (url && url !== '#') {
+                  window.open(url, '_blank', 'noopener,noreferrer');
+                }
+              }}
+              style={{ cursor: 'pointer' }}
             >
               <div
                 className="project-card__thumbnail"
@@ -165,6 +171,7 @@ const Projects = () => {
                     rel="noopener noreferrer"
                     className="project-card__link"
                     aria-label={`${project.title} GitHub`}
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <FaGithub />
                   </a>
@@ -175,6 +182,7 @@ const Projects = () => {
                       rel="noopener noreferrer"
                       className="project-card__link"
                       aria-label={`${project.title} Live Demo`}
+                      onClick={(e) => e.stopPropagation()}
                     >
                       <FaExternalLinkAlt />
                     </a>
