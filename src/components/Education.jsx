@@ -18,7 +18,7 @@ const education = [
     field: 'Computer Science',
     school: 'National Institute of Technology, Warangal',
     year: '2022 – 2025',
-    grade: 'CGPA: 7.73/10.0',
+    // grade: 'CGPA: 7.73/10.0',
     icon: '🎓',
   },
   {
@@ -26,21 +26,21 @@ const education = [
     field: 'Computer Science',
     school: 'Devi Ahilya Vishwavidyalaya, Indore',
     year: '2018 – 2021',
-    grade: '72.9%',
+    // grade: '72.9%',
     icon: '🎓',
   },
   {
     degree: 'Higher Secondary School (XII)',
     school: 'Board of Secondary Education, Madhya Pradesh',
     year: '2017 – 2018',
-    grade: '80.2%',
+    // grade: '80.2%',
     icon: '🎓',
   },
   {
     degree: 'High School (X)',
     school: 'Board of Secondary Education, Madhya Pradesh',
     year: '2015 – 2016',
-    grade: '83.3%',
+    // grade: '83.3%',
     icon: '🎓',
   },
 ]
@@ -51,13 +51,13 @@ const experience = [
     company: 'Blue Yonder',
     location: 'Hyderabad, Telangana',
     year: 'July 2025 – Present',
-    points: [
-      'Designed and developed REST APIs to integrate AI agents for dynamic task execution and real-time response handling.',
-      'Extended an existing agent orchestration platform by integrating new agents based on business requirements, leveraging FastAPI for high-performance async execution.',
-      'Integrated internal services into the backend ecosystem, enabling seamless data exchange across platforms and improving system interoperability.',
-      'Redesigned core UI components, reducing render time and improving page responsiveness by 25%.',
-      'Reduced API response time by 30% through query optimization and caching strategies.',
-    ],
+    // points: [
+    //   'Designed and developed REST APIs to integrate AI agents for dynamic task execution and real-time response handling.',
+    //   'Extended an existing agent orchestration platform by integrating new agents based on business requirements, leveraging FastAPI for high-performance async execution.',
+    //   'Integrated internal services into the backend ecosystem, enabling seamless data exchange across platforms and improving system interoperability.',
+    //   'Redesigned core UI components, reducing render time and improving page responsiveness by 25%.',
+    //   'Reduced API response time by 30% through query optimization and caching strategies.',
+    // ],
     icon: '💼',
   },
   {
@@ -65,11 +65,11 @@ const experience = [
     company: 'Blue Yonder',
     location: 'Hyderabad, Telangana',
     year: 'Jan 2025 – June 2025',
-    points: [
-      'Resolved critical defects in a production web application, improving stability and user experience.',
-      'Utilized Jira to effectively manage and prioritize tasks, progress, and ensure timely delivery of bug fixes and performance improvements.',
-      'Documented resolved issues and optimization strategies to ensure knowledge transfer and code maintainability.',
-    ],
+    // points: [
+    //   'Resolved critical defects in a production web application, improving stability and user experience.',
+    //   'Utilized Jira to effectively manage and prioritize tasks, progress, and ensure timely delivery of bug fixes and performance improvements.',
+    //   'Documented resolved issues and optimization strategies to ensure knowledge transfer and code maintainability.',
+    // ],
     icon: '🚀',
   },
 ]
@@ -174,7 +174,7 @@ const Education = () => {
                   <p className="timeline__field">{item.company}</p>
                   <p className="timeline__school">{item.location}</p>
                   <ul className="timeline__points">
-                    {item.points.map((point, i) => (
+                    {item.points && item.points.map((point, i) => (
                       <li key={i}>{point}</li>
                     ))}
                   </ul>
